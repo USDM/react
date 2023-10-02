@@ -1,5 +1,6 @@
 import { groups } from "../../testData/groups";
 import CardGroup from "../../components/group/cardGroup/CardGroup";
+import Modal from "../../components/modal/Modal";
 import "./Group.sass"
 
 const Groups = () => {
@@ -15,6 +16,7 @@ const Groups = () => {
           </div>
         )
       }
+      <Modal/>
     </div>
   )
 }

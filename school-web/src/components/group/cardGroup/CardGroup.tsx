@@ -1,27 +1,33 @@
-import Collapse from "../../common/Collapse"
+import "./CardGroup.sass"
+import { publish } from "../../../utils/pubsub"
+import { StudentsShownInEvent } from "../../../utils/events/StudentsShownInEvent"
 
 interface StudentInterface {
   id: number,
   name: string
 }
 
+interface GroupInterface {
+  id: number,
+  name: string,
+  students: StudentInterface[]
+}
+
 interface CardGroupPropsInterface{
-  group: {
-    id: number,
-    name: string,
-    students: StudentInterface[]
-  }
+  group: GroupInterface
 }
 
 const CardGroup = ({ group }:CardGroupPropsInterface) => {
+
+  const handleClickViewStudents = (group:GroupInterface) => {
+    publish(new StudentsShownInEvent(group.students));
+  }
+
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">Card title</h5>
-        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <button> Ver </button>
-        <Collapse
-        />
+        <h5 className="card-title">{group.name}</h5>
+        <button className="btn btn-primary" onClick={() => handleClickViewStudents(group)}>Ver</button>
       </div>
     </div>
   )
