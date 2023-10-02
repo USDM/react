@@ -1,6 +1,5 @@
 import { groups } from "../../testData/groups";
-import Collapse from "../../components/group/Collapse";
-import ListStudents from "../../components/group/listStudents/ListStudents";
+import CardGroup from "../../components/group/cardGroup/CardGroup";
 import "./Group.sass"
 
 const Groups = () => {
@@ -8,12 +7,13 @@ const Groups = () => {
     <div className="groups">
       {
         groups.map( group => 
-        <Collapse 
-          mainContent={group.name} 
-          subContent={<ListStudents students={group.students}/>} 
-          id={group.id} 
-          key={group.id}
-        />)
+          <div className="group-container">
+            <CardGroup 
+              group={group} 
+              key={group.id}
+            />
+          </div>
+        )
       }
     </div>
   )
