@@ -1,11 +1,13 @@
-const students_tmp = [];
-for( let i = 0; i < 40; i++ ){
-  students_tmp.push(
-    {
-      id:0,
-      name:"URIEL SANCHEZ DELGADILLO"
-    }
-  );
-}
 
-export const students = students_tmp
+export function generateStudents(ID: string){
+  const students_tmp = [];
+  for( let i = 0; i < 40; i++ ){
+    students_tmp.push(
+      {
+        id:i,
+        name:ID+" URIEL"
+      }
+    );
+  }
+  return students_tmp;
+}
