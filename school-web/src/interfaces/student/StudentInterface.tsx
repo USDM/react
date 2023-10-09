@@ -1,4 +1,4 @@
 export default interface StudentInterface {
-  id: number,
+  id?: number,
   name: string
 }

@@ -1,37 +1,37 @@
-import { useEffect, useContext } from "react"
+import { useContext } from "react"
 import "./ListStudents.sass"
-import { subscribe } from "../../../utils/pubsub.js";
-import {StudentsShownInEvent} from "../../../utils/events/StudentsShownInEvent.js"
-import StudentContext from "../../../contexts/StudentContext.js";
+import GroupsContext from "../../../contexts/GroupsContext.js";
+import { v4 as uuidv4 } from 'uuid';
+import StudentInterface from "../../../interfaces/student/StudentInterface.js";
 
 const ListStudents = () => {
-  const { students, setStudents } = useContext(StudentContext);
-  useEffect(()=>{
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handle = subscribe(StudentsShownInEvent, (params:any) => {
-      setStudents(params.students);
-    });
+  const { selectedGroup, setSelectedGroup } = useContext(GroupsContext);
 
-    return function cleanup() {
-      handle.unsubscribe();
-    };
+  const handleDeleteStudent = (student:StudentInterface) => {
+    const indexToDelete = selectedGroup.students.findIndex( el => el.id === student.id);
+    selectedGroup.students.splice(indexToDelete,1);
+    setSelectedGroup({...selectedGroup});
+  }
 
-  },[])
   return (
     <table className="table table-striped table-bordered text-center">
       <thead>
         <tr>
           <th>id</th>
           <th>Name</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         {
-          students.map( student => {
+          selectedGroup.students.map( student => {
             return (
-              <tr key={student.id}>
+              <tr key={uuidv4()}>
                 <td>{student.id}</td>
                 <td>{student.name}</td>
+                <td>
+                  <button className="btn btn-danger" onClick={()=>handleDeleteStudent(student)}>Delete</button>
+                </td>
               </tr>
             )
           })

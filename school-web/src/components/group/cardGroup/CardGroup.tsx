@@ -2,17 +2,8 @@ import { useContext } from "react"
 import "./CardGroup.sass"
 import { publish } from "../../../utils/pubsub"
 import { ModalShownInEvent } from "../../../utils/events/ModalShownInEvent"
-import StudentContext from "../../../contexts/StudentContext"
-interface StudentInterface {
-  id: number,
-  name: string
-}
-
-interface GroupInterface {
-  id: number,
-  name: string,
-  students: StudentInterface[]
-}
+import GroupsContext from "../../../contexts/GroupsContext"
+import GroupInterface from "../../../interfaces/group/GroupInterface"
 
 interface CardGroupPropsInterface{
   group: GroupInterface
@@ -20,10 +11,10 @@ interface CardGroupPropsInterface{
 
 const CardGroup = ({ group }:CardGroupPropsInterface) => {
 
-  const { setStudents } = useContext(StudentContext);
+  const { setSelectedGroup } = useContext(GroupsContext);
 
   const handleClickViewStudents = (group:GroupInterface) => {
-    setStudents(group.students as never[]);
+    setSelectedGroup({...group});
     publish(new ModalShownInEvent());
   }
 

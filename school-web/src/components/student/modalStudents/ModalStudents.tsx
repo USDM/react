@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ListStudents from '../listStudents/ListStudents'
 import FormStudent from '../formStudent/FormStudent'
 import "./ModalStudents.sass"

@@ -1,14 +1,17 @@
 import { createContext } from 'react';
+import GroupInterface from '../interfaces/group/GroupInterface';
 
 interface GroupsContextInterface{
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  students: Array<any>
-  setStudents: () => void
+  selectedGroup: GroupInterface
+  setSelectedGroup: React.Dispatch<React.SetStateAction<GroupInterface>>;
 }
 
 const initialContextValues = {
-  students: [],
-  setStudents: () => {}
+  selectedGroup:{
+    name:"",
+    students: [],
+  },
+  setSelectedGroup: () => {}
 }
 
 const GroupsContext = createContext<GroupsContextInterface>(initialContextValues);
